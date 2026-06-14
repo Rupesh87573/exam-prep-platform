@@ -770,3 +770,55 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ==================== AUTH / LOGIN VIEW LAYOUT ==================== */
+.auth-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 180px); /* Center vertically minus header/footer heights */
+  padding: 40px 0;
+  width: 100%;
+}
+
+.auth-card {
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-white);
+  animation: slideUp var(--transition-normal);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-header h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 576px) {
+  .auth-card-container {
+    min-height: calc(100vh - 160px);
+    padding: 10px;
+  }
+  .auth-card {
+    padding: 24px 16px;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+
