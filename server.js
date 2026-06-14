@@ -48,6 +48,17 @@ const checkAndSeed = async () => {
 // Run checking async
 setTimeout(checkAndSeed, 1000);
 
+// Diagnostic API for connection check
+app.get('/api/db-check', (req, res) => {
+  const mongoose = require('mongoose');
+  res.json({
+    readyState: mongoose.connection.readyState,
+    readyStateText: ['disconnected', 'connected', 'connecting', 'disconnecting'][mongoose.connection.readyState],
+    hasMongoUri: !!process.env.MONGODB_URI,
+    hasMongoUriAlt: !!process.env.MONGO_URI
+  });
+});
+
 // API Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/questions', require('./routes/questions'));
