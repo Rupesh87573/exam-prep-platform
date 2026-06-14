@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const Result = require('../models/Result');
 const { protect } = require('../middleware/auth');
 
-// In-memory OTP store (mobile -> { otp, expires })
-const otpStore = new Map();
+// Database Schema for OTP to support stateless serverless environment on Vercel
+const OtpSchema = new mongoose.Schema({
+  mobile: { type: String, required: true, unique: true },
+  otp: { type: String, required: true },
+  expires: { type: Date, required: true }
+});
+const Otp = mongoose.models.Otp || mongoose.model('Otp', OtpSchema);
 
 // Generate Token
 const generateToken = (id) => {
@@ -14,6 +20,8 @@ const generateToken = (id) => {
     expiresIn: '30d'
   });
 };
+
+
 
 // @route   POST /api/auth/send-otp
 // @desc    Send OTP to mobile (simulated)
@@ -27,21 +35,30 @@ router.post('/send-otp', async (req, res) => {
 
   // Generate 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expires = Date.now() + 5 * 60 * 1000; // 5 minutes expiry
+  const expires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes expiry
 
-  otpStore.set(mobile, { otp, expires });
+  try {
+    // Store in database to ensure it's available across multiple Vercel serverless instances
+    await Otp.findOneAndUpdate(
+      { mobile },
+      { otp, expires },
+      { upsert: true, new: true }
+    );
 
-  console.log(`\n==============================================`);
-  console.log(`[SMS OTP SIMULATOR] Sent SMS to: +91 ${mobile}`);
-  console.log(`[SMS OTP SIMULATOR] OTP Code: ${otp}`);
-  console.log(`==============================================\n`);
+    console.log(`\n==============================================`);
+    console.log(`[SMS OTP SIMULATOR] Sent SMS to: +91 ${mobile}`);
+    console.log(`[SMS OTP SIMULATOR] OTP Code: ${otp}`);
+    console.log(`==============================================\n`);
 
-  res.json({
-    success: true,
-    message: 'OTP sent successfully (Simulated)',
-    // In development mode, we expose OTP in response for easy testing, along with the fallback master code
-    otp: otp 
-  });
+    res.json({
+      success: true,
+      message: 'OTP sent successfully (Simulated)',
+      otp: otp 
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server error generating OTP' });
+  }
 });
 
 // @route   POST /api/auth/verify-otp
@@ -54,20 +71,20 @@ router.post('/verify-otp', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Please provide mobile number and OTP' });
   }
 
-  // Validate OTP
-  const record = otpStore.get(mobile);
-  
-  // Allow master code '123456' for easier testing/grading, or match simulated OTP
-  const isValidOtp = (otp === '123456') || (record && record.otp === otp && record.expires > Date.now());
-
-  if (!isValidOtp) {
-    return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
-  }
-
-  // Clear OTP
-  otpStore.delete(mobile);
-
   try {
+    // Validate OTP from database
+    const record = await Otp.findOne({ mobile });
+    
+    // Allow master code '123456' for easier testing/grading, or match simulated OTP
+    const isValidOtp = (otp === '123456') || (record && record.otp === otp && record.expires > new Date());
+
+    if (!isValidOtp) {
+      return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
+    }
+
+    // Clear OTP
+    await Otp.deleteOne({ mobile });
+
     let user = await User.findOne({ mobile });
 
     if (!user) {
