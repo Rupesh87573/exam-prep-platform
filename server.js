@@ -9,15 +9,26 @@ const seedDB = require('./utils/seedData');
 // Load environment variables
 dotenv.config();
 
-// Connect to Database
-connectDB();
-
 const app = express();
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Database connection middleware for serverless environment
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: 'Database connection failed', 
+      error: error.message 
+    });
+  }
+});
 
 // Disable caching of static files in development to reload fresh UI components immediately
 app.use((req, res, next) => {

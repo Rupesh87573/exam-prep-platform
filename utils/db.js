@@ -1,18 +1,24 @@
 const mongoose = require('mongoose');
 
+let cachedConnection = null;
+
 const connectDB = async () => {
+  if (cachedConnection && mongoose.connection.readyState === 1) {
+    return cachedConnection;
+  }
+
+  const uri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/exam_prep_platform';
+  
   try {
-    const conn = await mongoose.connect(
-      process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/exam_prep_platform',
-      {
-        dbName: 'exam_prep_platform'
-      }
-    );
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    cachedConnection = await mongoose.connect(uri, {
+      dbName: 'exam_prep_platform',
+      serverSelectionTimeoutMS: 5000 // Time out quickly (5s) to fail fast rather than hang
+    });
+    console.log(`MongoDB Connected: ${cachedConnection.connection.host}`);
+    return cachedConnection;
   } catch (error) {
     console.error(`Database Connection Error: ${error.message}`);
-    // Do not crash the server in development, allow mock fallbacks or local testing if offline
-    console.log('Running with MongoDB offline warning. Ensure MongoDB is running for full functionality.');
+    throw error;
   }
 };
 
