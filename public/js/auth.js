@@ -1,3 +1,50 @@
+// Custom Toast Notification System
+window.showToast = function(message, type = 'info') {
+  let container = document.getElementById('toast-notification-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-notification-container';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast-message ${type}`;
+
+  let iconClass = 'fa-circle-info';
+  if (type === 'success') iconClass = 'fa-circle-check';
+  else if (type === 'error') iconClass = 'fa-circle-xmark';
+  else if (type === 'warning') iconClass = 'fa-triangle-exclamation';
+
+  toast.innerHTML = `
+    <div class="toast-icon"><i class="fa-solid ${iconClass}"></i></div>
+    <div class="toast-text">${message.replace(/\n/g, '<br>')}</div>
+    <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+  `;
+
+  container.appendChild(toast);
+
+  // Automatically remove toast after 4 seconds (slide out finishes at 4s)
+  setTimeout(() => {
+    if (toast.parentElement) toast.remove();
+  }, 4000);
+};
+
+// Override default window.alert
+window.alert = function(message) {
+  const lowerMsg = message.toLowerCase();
+  let type = 'info';
+  if (lowerMsg.includes('success') || lowerMsg.includes('welcome') || lowerMsg.includes('unlocked') || lowerMsg.includes('passed') || lowerMsg.includes('recorded')) {
+    type = 'success';
+  } else if (lowerMsg.includes('error') || lowerMsg.includes('fail') || lowerMsg.includes('invalid') || lowerMsg.includes('incorrect') || lowerMsg.includes('expired') || lowerMsg.includes('forbidden') || lowerMsg.includes('rejected') || lowerMsg.includes('denied') || lowerMsg.includes('alert') || lowerMsg.includes('security') || lowerMsg.includes('violation')) {
+    type = 'error';
+  } else if (lowerMsg.includes('warning') || lowerMsg.includes('caution') || lowerMsg.includes('required') || lowerMsg.includes('missing') || lowerMsg.includes('select a file')) {
+    type = 'warning';
+  }
+  
+  window.showToast(message, type);
+};
+
 const auth = {
   mobile: '',
   otpToken: null,
