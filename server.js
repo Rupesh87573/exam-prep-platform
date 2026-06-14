@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 const connectDB = require('./utils/db');
 const Question = require('./models/Question');
 const seedDB = require('./utils/seedData');
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 });
 
 // Serve static assets from public directory
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Auto-seed database if empty
 const checkAndSeed = async () => {
