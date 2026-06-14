@@ -1,0 +1,331 @@
+/* ==================== HERO LAYOUT ==================== */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.hero-tag {
+  background-color: var(--color-primary-light);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-bottom: 20px;
+  border: 1px solid #dbeafe;
+}
+
+.hero-content h2 {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: var(--color-text-muted);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.hero-graphics {
+  position: relative;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.float-card-1, .float-card-2 {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 5;
+}
+
+.float-card-1 {
+  top: 15%;
+  left: -5%;
+  animation: floatNode1 6s infinite ease-in-out;
+}
+
+.float-card-2 {
+  bottom: 15%;
+  right: -5%;
+  animation: floatNode2 6s infinite ease-in-out;
+}
+
+.float-card-1 i, .float-card-2 i {
+  font-size: 24px;
+}
+
+.float-card-1 h4, .float-card-2 h4 {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.float-card-1 p, .float-card-2 p {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.dashboard-preview-card {
+  width: 90%;
+  height: 240px;
+  background-color: #0f172a;
+  border-radius: var(--radius-md);
+  border: 1px solid #334155;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  height: 36px;
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  border-bottom: 1px solid #334155;
+}
+
+.preview-header .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+}
+
+.preview-header .dot.red { background-color: #ef4444; }
+.preview-header .dot.yellow { background-color: #f59e0b; }
+.preview-header .dot.green { background-color: #10b981; }
+
+.preview-body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.code-line {
+  font-family: 'Courier New', Courier, monospace;
+  color: #38bdf8;
+  font-size: 14px;
+  border-right: 2px solid transparent;
+  width: max-content;
+  white-space: nowrap;
+  animation: typeCode 4s steps(40) infinite;
+}
+
+.code-line:nth-child(2) { color: #a78bfa; animation-delay: 1s; }
+.code-line:nth-child(3) { color: #34d399; animation-delay: 2s; }
+
+@keyframes floatNode1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes floatNode2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+
+/* ==================== FEATURES GRID ==================== */
+.section-container {
+  padding: 60px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  transition: all var(--transition-fast);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+.feature-icon {
+  background-color: var(--color-primary-light);
+  color: var(--color-accent);
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* ==================== PRICING ==================== */
+.pricing-section {
+  background-color: var(--color-primary-light);
+  margin-left: -24px;
+  margin-right: -24px;
+  padding: 80px 24px;
+}
+
+.pricing-card-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 30px;
+}
+
+.pricing-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.pricing-card.popular {
+  border: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-lg);
+  padding: 50px 40px;
+}
+
+.pricing-card .badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+}
+
+.pricing-card h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.pricing-card .price {
+  font-family: var(--font-title);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.pricing-card .price span {
+  font-size: 16px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.pricing-card .price-desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 16px;
+}
+
+.features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text-dark);
+}
+
+.features-list li i {
+  width: 16px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width: 992px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 30px 0;
+  }
+  
+  .hero-content {
+    margin: 0 auto;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .hero-graphics {
+    display: none;
+  }
+  
+  .pricing-card-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+  
+  .pricing-card.popular {
+    padding: 40px;
+  }
+}

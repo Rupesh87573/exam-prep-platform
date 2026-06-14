@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Exam Preparation Platform - RSSB & DSSSB</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js CDN for Admin Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/landing.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/exam.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ==================== HEADER / NAVIGATION ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="header-container">
+      <div class="logo-area" onclick="app.navigateTo('landing')">
+        <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="logo-text">
+          <h1>EXAM<span>PREP</span></h1>
+          <p>RSSB & DSSSB Computer Science</p>
+        </div>
+      </div>
+      
+      <nav class="nav-links" id="navLinks">
+        <a href="#" class="nav-item active" onclick="app.navigateTo('landing')"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#" class="nav-item hidden-guest" onclick="app.navigateTo('dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="#" class="nav-item hidden-guest" onclick="app.navigateTo('practice-lobby')"><i class="fa-solid fa-book-open"></i> Practice</a>
+        <a href="#" class="nav-item hidden-guest" onclick="app.navigateTo('mock-lobby')"><i class="fa-solid fa-clock"></i> Mock Tests</a>
+        <span class="sub-badge free-badge" id="headerSubBadge">Free User</span>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <div class="auth-buttons" id="headerAuthArea">
+          <button class="btn btn-outline" onclick="app.navigateTo('login')"><i class="fa-solid fa-right-to-bracket"></i> Login / Register</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="main-content">
+    
+    <!-- 1. LANDING VIEW -->
+    <section id="view-landing" class="spa-view active">
+      <div class="hero-section">
+        <div class="hero-content">
+          <span class="hero-tag">🎯 RSSB Computer Instructor & DSSSB TGT CSE</span>
+          <h2>Ace Your Government CS Exams With Confidence</h2>
+          <p>Practice chapter-wise questionnaires, attempt timed mock tests styled exactly like real government examinations, and analyze your scores to pinpoint improvement areas.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" onclick="app.navigateTo('login')">Get Started Free <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="btn btn-outline-light btn-lg" onclick="app.scrollToSection('features')">Learn More</button>
+          </div>
+        </div>
+        <div class="hero-graphics">
+          <div class="card glass-card float-card-1">
+            <i class="fa-solid fa-circle-check text-success"></i>
+            <div>
+              <h4>Real Exam Interface</h4>
+              <p>TCS iON standard palette</p>
+            </div>
+          </div>
+          <div class="card glass-card float-card-2">
+            <i class="fa-solid fa-bolt text-warning"></i>
+            <div>
+              <h4>Bilingual System</h4>
+              <p>Hindi & English Language</p>
+            </div>
+          </div>
+          <div class="dashboard-preview-card">
+            <div class="preview-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            </div>
+            <div class="preview-body">
+              <p class="code-line">16 Chapters Practice Mode...</p>
+              <p class="code-line">30 Professional Mock Tests...</p>
+              <p class="code-line">Instant Rank & Score Analytics...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURES SECTION -->
+      <section id="features" class="section-container">
+        <h3 class="section-title">Why Choose Our Exam Platform?</h3>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-language"></i></div>
+            <h3>Bilingual Support</h3>
+            <p>Every single question is provided in both Hindi and English. Toggle dynamically with a single click during your test.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-display"></i></div>
+            <h3>TCS iON Exam Layout</h3>
+            <p>Attempt mock tests in an environment identical to the real government servers, featuring interactive question palettes.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Anti-Cheat Lockouts</h3>
+            <p>Monitors tab switching, mouse blurs, and full-screen escapes. Simulates actual exam room restrictions.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Granular Score Analytics</h3>
+            <p>Generates marks, accuracy levels, percentile rank, and lists your strong and weak chapters automatically.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUBSCRIPTION / PRICING DETAILS -->
+      <section id="pricing" class="section-container pricing-section">
+        <h3 class="section-title">Simple, Transparent Pricing</h3>
+        <div class="pricing-card-wrapper">
+          <div class="pricing-card free-tier">
+            <h3>Free Plan</h3>
+            <div class="price">₹0</div>
+            <p class="price-desc">Perfect to test the platform</p>
+            <ul class="features-list">
+              <li><i class="fa-solid fa-check text-success"></i> 1 Full Practice Chapter (Computer Fundamentals)</li>
+              <li><i class="fa-solid fa-check text-success"></i> 1 Full Mock Test Access (Mock Test 1)</li>
+              <li><i class="fa-solid fa-check text-success"></i> Bilingual English & Hindi Switcher</li>
+              <li><i class="fa-solid fa-xmark text-danger"></i> 15 Premium Chapters Blocked</li>
+              <li><i class="fa-solid fa-xmark text-danger"></i> 29 Premium Mock Tests Blocked</li>
+            </ul>
+            <button class="btn btn-outline btn-block" onclick="app.navigateTo('login')">Access Free Content</button>
+          </div>
+
+          <div class="pricing-card premium-tier popular">
+            <div class="badge">RECOMMENDED</div>
+            <h3>All-Access Premium</h3>
+            <div class="price">₹100<span>/ Yearly</span></div>
+            <p class="price-desc">Change price anytime via Admin panel</p>
+            <ul class="features-list">
+              <li><i class="fa-solid fa-check text-success"></i> 16 Complete Practice Chapters (1600+ MCQs)</li>
+              <li><i class="fa-solid fa-check text-success"></i> 30 Full Mock Tests (Paper 1 & Paper 2)</li>
+              <li><i class="fa-solid fa-check text-success"></i> Full TCS iON Government Exam Interface</li>
+              <li><i class="fa-solid fa-check text-success"></i> Instant Marks, Rank & Strong/Weak Area Analytics</li>
+              <li><i class="fa-solid fa-check text-success"></i> Bookmarks & Review Later Controls</li>
+            </ul>
+            <button class="btn btn-primary btn-block btn-lg" onclick="app.purchasePremium()">Unlock Everything Now</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 2. LOGIN / REGISTER VIEW -->
+    <section id="view-login" class="spa-view">
+      <div class="auth-card-container">
+        <div class="auth-card card">
+          <div class="auth-header">
+            <h3>Mobile Login / Registration</h3>
+            <p>Enter your details below to log in or register. A simulated OTP will be sent.</p>
+          </div>
+
+          <!-- Step 1: Mobile & Name -->
+          <div id="auth-step-mobile">
+            <form id="form-send-otp" onsubmit="auth.handleSendOtp(event)">
+              <div class="form-group">
+                <label for="reg-name">Full Name <span class="text-muted">(Required for new users)</span></label>
+                <input type="text" id="reg-name" placeholder="Enter full name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="reg-mobile">Mobile Number</label>
+                <div class="input-with-prefix">
+                  <span class="prefix">+91</span>
+                  <input type="tel" id="reg-mobile" placeholder="9876543210" pattern="[6-9][0-9]{9}" required class="form-control">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-paper-plane"></i> Send OTP Code</button>
+            </form>
+          </div>
+
+          <!-- Step 2: OTP Entry -->
+          <div id="auth-step-otp" class="hidden">
+            <div class="otp-alert-info">
+              <i class="fa-solid fa-envelope-open-text text-primary"></i>
+              <p>Simulated OTP sent to <strong id="display-otp-mobile"></strong>. Check server console logs.</p>
+            </div>
+            
+            <form id="form-verify-otp" onsubmit="auth.handleVerifyOtp(event)">
+              <div class="form-group">
+                <label for="reg-otp">6-Digit OTP Code</label>
+                <input type="text" id="reg-otp" placeholder="Enter 6-digit code" pattern="[0-9]{6}" required class="form-control text-center otp-input">
+              </div>
+              
+              <div class="otp-timer-container" style="margin-top: 15px; background-color: var(--color-primary-light); padding: 10px; border-radius: var(--radius-sm); border: 1px solid #dbeafe; font-size: 13px;">
+                <p>Simulated Verification Code: <strong class="text-primary" id="simulated-otp-code" style="font-size: 15px; font-weight: 700; font-family: monospace;">------</strong></p>
+              </div>
+
+              <div class="button-row">
+                <button type="button" class="btn btn-outline" onclick="auth.showMobileStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-check"></i> Verify & Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. USER DASHBOARD VIEW -->
+    <section id="view-dashboard" class="spa-view">
+      <div class="dashboard-container">
+        
+        <!-- Sidebar profile card -->
+        <div class="dashboard-sidebar">
+          <div class="card profile-card">
+            <div class="profile-avatar"><i class="fa-solid fa-user-tie"></i></div>
+            <h3 id="dash-user-name">User Name</h3>
+            <p class="phone" id="dash-user-mobile">+91 0000000000</p>
+            
+            <div class="subscription-status-box" id="dash-sub-box">
+              <span class="sub-pill free">Free Account</span>
+              <p>Upgrade to premium to unlock all chapters and mock exams.</p>
+              <button class="btn btn-primary btn-sm btn-block" onclick="app.purchasePremium()">Upgrade Now (₹100)</button>
+            </div>
+          </div>
+
+          <div class="card info-card mt-3">
+            <h3><i class="fa-solid fa-bullhorn text-warning"></i> Notifications</h3>
+            <ul class="notification-list" id="dashboard-notifications">
+              <li>No new announcements at this time.</li>
+            </ul>
+          </div>
+
+          <div class="card info-card mt-3">
+            <h3><i class="fa-solid fa-headset text-primary"></i> Help & Support</h3>
+            <ul class="notification-list" style="list-style: none; padding-left: 0;">
+              <li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-phone text-success"></i> <strong>+91 8757310182</strong></li>
+              <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-envelope text-primary"></i> <a href="mailto:kumarrupesh829119@gmail.com" style="word-break: break-all; color: var(--color-accent); text-decoration: none;">kumarrupesh829119@gmail.com</a></li>
+            </ul>
+          </div>
+
+          <div class="card info-card mt-3" style="text-align: center; padding: 16px;">
+            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0; font-weight: 500;">
+              <i class="fa-solid fa-code text-primary"></i> Creator: <strong>Rupesh Kumar Tiwari</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Dashboard metrics & attempts history -->
+        <div class="dashboard-main">
+          <h2 class="welcome-heading">Welcome Back, <span id="welcome-user-name">Student</span>!</h2>
+          
+          <div class="metrics-grid">
+            <div class="metric-card card">
+              <div class="metric-icon bg-primary-light"><i class="fa-solid fa-file-invoice"></i></div>
+              <div class="metric-info">
+                <h3 id="stat-tests-attempted">0</h3>
+                <p>Total Attempts</p>
+              </div>
+            </div>
+            
+            <div class="metric-card card">
+              <div class="metric-icon bg-success-light"><i class="fa-solid fa-square-check"></i></div>
+              <div class="metric-info">
+                <h3 id="stat-avg-score">0.0%</h3>
+                <p>Average Accuracy</p>
+              </div>
+            </div>
+            
+            <div class="metric-card card">
+              <div class="metric-icon bg-warning-light"><i class="fa-solid fa-award"></i></div>
+              <div class="metric-info">
+                <h3 id="stat-highest-score">0.0</h3>
+                <p>Best Score</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Navigation buttons -->
+          <div class="quick-nav-actions mb-4">
+            <button class="btn btn-primary" onclick="app.navigateTo('practice-lobby')"><i class="fa-solid fa-book-open"></i> Start Practice Chapter</button>
+            <button class="btn btn-accent" onclick="app.navigateTo('mock-lobby')"><i class="fa-solid fa-clock"></i> Attempt Mock Test</button>
+          </div>
+
+          <!-- History of test attempts -->
+          <div class="card history-card">
+            <h3><i class="fa-solid fa-history text-muted"></i> Test Attempt History</h3>
+            <div class="table-responsive">
+              <table class="table" id="table-attempts-history">
+                <thead>
+                  <tr>
+                    <th>Test Title / Subject</th>
+                    <th>Type</th>
+                    <th>Score</th>
+                    <th>Accuracy</th>
+                    <th>Attempt Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-attempts-tbody">
+                  <tr>
+                    <td colspan="6" class="text-center">No test attempts recorded. Select Practice or Mock Tests to start!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. PRACTICE LOBBY VIEW -->
+    <section id="view-practice-lobby" class="spa-view">
+      <div class="lobby-header">
+        <h2>Chapter-Wise Practice Modules</h2>
+        <p>Prepare step-by-step through our 16 conceptual computer science and aptitude modules. Free users can access the first chapter fully.</p>
+      </div>
+
+      <div class="chapters-grid" id="chapters-list-container">
+        <!-- Rendered dynamically in app.js -->
+      </div>
+    </section>
+
+    <!-- 5. MOCK TEST LOBBY VIEW -->
+    <section id="view-mock-lobby" class="spa-view">
+      <div class="lobby-header">
+        <h2>Mock Examination Portal</h2>
+        <p>Simulated state and central competitive exam series. Attempt 100-question modules with standard negative marking (0.33) and a 120-minute countdown.</p>
+      </div>
+
+      <div class="tab-container">
+        <div class="tab-header">
+          <button class="tab-btn active" onclick="app.switchMockTab('paper1')">Paper 1 (General Studies & Aptitude)</button>
+          <button class="tab-btn" onclick="app.switchMockTab('paper2')">Paper 2 (Computer Science & Engineering)</button>
+        </div>
+        
+        <div class="tab-content active" id="mock-paper1-container">
+          <!-- Rendered dynamically in app.js -->
+        </div>
+
+        <div class="tab-content" id="mock-paper2-container">
+          <!-- Rendered dynamically in app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. TCS iON EXAM ENVIRONMENT VIEW -->
+    <section id="view-exam-interface" class="spa-view exam-full-layout">
+      
+      <!-- Top header bar containing stats -->
+      <div class="exam-top-bar">
+        <div class="exam-title-box">
+          <i class="fa-solid fa-file-signature"></i>
+          <h4 id="exam-portal-title">Mock Test 1</h4>
+        </div>
+        
+        <div class="exam-controls">
+          <div class="lang-selector">
+            <span class="label">Lang:</span>
+            <button class="lang-btn active" id="btn-lang-bilingual" onclick="exam.setLanguage('bilingual')">Bilingual</button>
+            <button class="lang-btn" id="btn-lang-en" onclick="exam.setLanguage('en')">English</button>
+            <button class="lang-btn" id="btn-lang-hi" onclick="exam.setLanguage('hi')">हिंदी</button>
+          </div>
+          
+          <div class="timer-box">
+            <i class="fa-regular fa-clock"></i>
+            <span id="exam-timer">120:00</span>
+          </div>
+
+          <button class="btn btn-danger btn-sm" onclick="exam.confirmExitTest()"><i class="fa-solid fa-right-from-bracket"></i> Exit</button>
+        </div>
+      </div>
+
+      <!-- Main center body split: Left Question, Right Palette -->
+      <div class="exam-main-frame">
+        
+        <!-- Left: Question Panel -->
+        <div class="exam-question-area">
+          <div class="question-header">
+            <span class="q-number-label">Question <span id="display-q-index">1</span></span>
+            <span class="q-type-badge">Single Correct Option</span>
+          </div>
+          
+          <div class="question-body">
+            <p class="question-text" id="display-q-text">Loading question text...</p>
+            
+            <div class="options-container" id="display-options-container">
+              <!-- Rendered dynamically in exam.js -->
+            </div>
+          </div>
+
+          <!-- Bottom Nav inside Question Box -->
+          <div class="question-footer-bar">
+            <button class="btn btn-outline" onclick="exam.prevQuestion()"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+            <button class="btn btn-warning" onclick="exam.markForReview()"><i class="fa-solid fa-thumbtack"></i> Mark for Review</button>
+            <button class="btn btn-outline-danger" onclick="exam.clearResponse()"><i class="fa-solid fa-eraser"></i> Clear Response</button>
+            <button class="btn btn-success" onclick="exam.saveAndNext()">Save & Next <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Right: Palette Grid -->
+        <div class="exam-palette-area">
+          <div class="candidate-profile">
+            <div class="candidate-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+            <div class="candidate-meta">
+              <h5 id="candidate-name-exam">Student Name</h5>
+              <p>Subject: CS</p>
+            </div>
+          </div>
+
+          <!-- Palette Stats Legend -->
+          <div class="palette-legend">
+            <div class="legend-item"><span class="legend-box answered">0</span> Answered</div>
+            <div class="legend-item"><span class="legend-box not-answered">0</span> Not Answered</div>
+            <div class="legend-item"><span class="legend-box not-visited">0</span> Not Visited</div>
+            <div class="legend-item"><span class="legend-box marked">0</span> Marked for Review</div>
+            <div class="legend-item"><span class="legend-box marked-answered">0</span> Ans & Marked (will be evaluated)</div>
+          </div>
+
+          <h3>Question Palette</h3>
+          <div class="palette-grid" id="exam-palette-grid">
+            <!-- Numbers generated dynamically -->
+          </div>
+
+          <div class="submit-box-wrapper">
+            <button class="btn btn-primary btn-block btn-lg" onclick="exam.triggerSubmitConfirmation()"><i class="fa-solid fa-upload"></i> Submit Test</button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 7. RESULT REPORT VIEW -->
+    <section id="view-result-analysis" class="spa-view">
+      <div class="result-header-summary">
+        <h2>Test Performance Report</h2>
+        <p id="result-test-title">Mock Test 1 (Paper 1)</p>
+      </div>
+
+      <!-- Key Performance Metrics -->
+      <div class="result-metrics-grid">
+        <div class="result-card score-box">
+          <p class="label">Obtained Score</p>
+          <h1 id="res-score">0.00</h1>
+          <p class="sub-label">Out of <span id="res-total-marks">10</div>
+        </div>
+        
+        <div class="result-card">
+          <p class="label">Percentile Rank</p>
+          <h1 id="res-rank">N/A</h1>
+          <p class="sub-label">Among <span id="res-total-candidates">1</span> participants</p>
+        </div>
+
+        <div class="result-card">
+          <p class="label">Accuracy Rate</p>
+          <h1 id="res-accuracy">0.0%</h1>
+          <p class="sub-label">Correct responses ratio</p>
+        </div>
+
+        <div class="result-card">
+          <p class="label">Time Invested</p>
+          <h1 id="res-time">0m 0s</h1>
+          <p class="sub-label">Of 120 minutes limit</p>
+        </div>
+      </div>
+
+      <!-- Metrics counts: correct, incorrect, unattempted -->
+      <div class="result-counts-panel card">
+        <div class="count-block text-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <div>
+            <h4 id="res-count-correct">0</h4>
+            <p>Correct Answers</p>
+          </div>
+        </div>
+        <div class="count-block text-danger">
+          <i class="fa-solid fa-circle-xmark"></i>
+          <div>
+            <h4 id="res-count-incorrect">0</h4>
+            <p>Incorrect Answers</p>
+          </div>
+        </div>
+        <div class="count-block text-muted">
+          <i class="fa-solid fa-circle-minus"></i>
+          <div>
+            <h4 id="res-count-skipped">0</h4>
+            <p>Skipped Questions</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strengths & Weaknesses cards -->
+      <div class="analysis-layout">
+        <div class="card analysis-card border-success">
+          <h3 class="text-success"><i class="fa-solid fa-thumbs-up"></i> Strong Areas (>= 70% Accuracy)</h3>
+          <ul id="res-strong-list" class="badge-list">
+            <li>No chapters met the strong criteria in this test. Keep practicing!</li>
+          </ul>
+        </div>
+
+        <div class="card analysis-card border-danger">
+          <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Weak Areas (< 50% Accuracy)</h3>
+          <ul id="res-weak-list" class="badge-list">
+            <li>No chapters fell below the weak criteria in this test. Great job!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Review correct answers panel -->
+      <div class="card solutions-review mt-4">
+        <h3><i class="fa-solid fa-list-check text-primary"></i> Detailed Answer Sheet Review</h3>
+        <p class="desc">Verify the correct options and match your chosen inputs for every question.</p>
+        
+        <div class="solutions-list" id="res-solutions-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" onclick="app.navigateTo('dashboard')"><i class="fa-solid fa-house"></i> Return to Dashboard</button>
+        <button class="btn btn-outline" id="btn-re-attempt-chapter" onclick="app.reattemptTest()"><i class="fa-solid fa-rotate-right"></i> Try Again</button>
+      </div>
+    </section>
+
+    <!-- 8. HIDDEN ADMIN LOGIN VIEW -->
+    <section id="view-admin-login" class="spa-view">
+      <div class="auth-card-container">
+        <div class="auth-card card border-primary">
+          <div class="auth-header">
+            <h3><i class="fa-solid fa-lock text-primary"></i> Administrative Portal</h3>
+            <p>Authentication required. Enter passcode credentials to log in.</p>
+          </div>
+          
+          <form id="form-admin-login" onsubmit="admin.handleAdminLogin(event)">
+            <div class="form-group">
+              <label for="admin-passcode">Admin Passcode</label>
+              <input type="password" id="admin-passcode" placeholder="••••••••" required class="form-control text-center password-input">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-key"></i> Log In to Dashboard</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. ADMIN PANEL VIEW -->
+    <section id="view-admin-dashboard" class="spa-view">
+      <div class="admin-layout">
+        
+        <!-- Sidebar Navigation Tabs -->
+        <div class="admin-sidebar card">
+          <div class="admin-brand">
+            <i class="fa-solid fa-gears"></i>
+            <h4>Admin Panel</h4>
+          </div>
+          <ul class="admin-nav-tabs">
+            <li class="admin-tab active" onclick="admin.switchTab('analytics')"><i class="fa-solid fa-chart-pie"></i> Analytics & Stats</li>
+            <li class="admin-tab" onclick="admin.switchTab('users')"><i class="fa-solid fa-users"></i> User Management</li>
+            <li class="admin-tab" onclick="admin.switchTab('uploads')"><i class="fa-solid fa-cloud-arrow-up"></i> Bulk Question Upload</li>
+            <li class="admin-tab" onclick="admin.switchTab('questions')"><i class="fa-solid fa-database"></i> Question Bank</li>
+            <li class="admin-tab" onclick="admin.switchTab('notifications')"><i class="fa-solid fa-message"></i> Broadcast Announcements</li>
+          </ul>
+          
+          <div class="admin-logout-box">
+            <button class="btn btn-outline-danger btn-sm btn-block" onclick="admin.logout()"><i class="fa-solid fa-power-off"></i> Logout Admin</button>
+          </div>
+        </div>
+
+        <!-- Main Content Frames -->
+        <div class="admin-main">
+          
+          <!-- TAB 1: ANALYTICS -->
+          <div id="admin-tab-analytics" class="admin-tab-content active">
+            <h2>Dashboard Statistical Highlights</h2>
+            
+            <div class="admin-stats-grid">
+              <div class="admin-stat-card card">
+                <p>Total Registered Users</p>
+                <h2 id="admin-stat-users">0</h2>
+              </div>
+              <div class="admin-stat-card card">
+                <p>Active Users (7 Days)</p>
+                <h2 id="admin-stat-active">0</h2>
+              </div>
+              <div class="admin-stat-card card">
+                <p>Premium Subscribers</p>
+                <h2 id="admin-stat-paid">0</h2>
+              </div>
+              <div class="admin-stat-card card">
+                <p>Total Revenue Raised</p>
+                <h2 id="admin-stat-revenue">₹0.00</h2>
+              </div>
+            </div>
+
+            <div class="admin-charts-layout mt-4">
+              <div class="card chart-container">
+                <h3>Daily User Registrations</h3>
+                <canvas id="chart-registrations" height="200"></canvas>
+              </div>
+
+              <div class="card chart-container">
+                <h3>Most Practiced Chapters</h3>
+                <canvas id="chart-popular-chapters" height="200"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: USER MANAGEMENT -->
+          <div id="admin-tab-users" class="admin-tab-content">
+            <div class="admin-action-header">
+              <h2>User Management Records</h2>
+              <button class="btn btn-outline btn-sm" onclick="admin.exportUserData()"><i class="fa-solid fa-file-export"></i> Export All (JSON)</button>
+            </div>
+
+            <!-- Search controls -->
+            <div class="table-filters mt-3 card">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="admin-user-search-input" placeholder="Search by user name or phone number..." oninput="admin.searchUsers(this.value)">
+              </div>
+            </div>
+
+            <div class="card table-card mt-3">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Mobile Number</th>
+                      <th>Registered On</th>
+                      <th>Last Login</th>
+                      <th>Sub Status</th>
+                      <th>Attempts Count</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-users-tbody">
+                    <tr>
+                      <td colspan="7" class="text-center">Loading user records...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: BULK UPLOAD -->
+          <div id="admin-tab-uploads" class="admin-tab-content">
+            <h2>Bulk Question Upload Portal</h2>
+            <p class="desc">Supports uploading spreadsheet question datasets into chapters or mock test banks simultaneously. Supported extensions: <strong>.csv, .json, .xlsx</strong>.</p>
+            
+            <div class="card upload-form-card mt-4">
+              <form id="form-bulk-upload" onsubmit="admin.handleBulkUpload(event)">
+                <div class="upload-drag-zone" id="drag-drop-zone">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <h4>Drag and drop your spreadsheet here</h4>
+                  <p>Or click to browse files from your computer</p>
+                  <input type="file" id="bulk-upload-file" accept=".csv, .json, .xlsx, .xls" required class="hidden-file-input">
+                </div>
+                <div class="selected-file-indicator hidden" id="file-selected-info">
+                  <i class="fa-solid fa-file-excel text-success"></i>
+                  <div>
+                    <strong id="selected-filename">SampleData.xlsx</strong>
+                    <span id="selected-filesize">0 KB</span>
+                  </div>
+                  <button type="button" class="btn-clear" onclick="admin.clearSelectedFile()"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+
+                <div class="info-alert mt-3">
+                  <h5>Expected Format Columns:</h5>
+                  <p><code>Question</code>, <code>Option A</code>, <code>Option B</code>, <code>Option C</code>, <code>Option D</code>, <code>Option E</code>, <code>Correct Answer</code>, <code>Chapter Name</code>, <code>Question Type (chapter/mock)</code>, <code>Mock Test Title</code> (Required only if mock type).</p>
+                  <p>For Hindi translations, use: <code>Hindi Version</code> (Question text in Hindi), <code>Option A Hindi</code>, <code>Option B Hindi</code>, etc.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-4" id="btn-submit-upload"><i class="fa-solid fa-upload"></i> Process File & Upload</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- TAB 4: QUESTION BANK (CRUD) -->
+          <div id="admin-tab-questions" class="admin-tab-content">
+            <div class="admin-action-header">
+              <h2>Question Database</h2>
+              <button class="btn btn-primary btn-sm" onclick="admin.showAddQuestionModal()"><i class="fa-solid fa-plus"></i> Add Question Manually</button>
+            </div>
+
+            <div class="card mt-3" style="display: flex; gap: 15px; flex-direction: row; align-items: center; flex-wrap: wrap;">
+              <div class="form-group mb-0" style="flex: 1; min-width: 200px;">
+                <label for="admin-select-chapter-filter">Filter Questions by Chapter:</label>
+                <select id="admin-select-chapter-filter" class="form-control" onchange="admin.filterQuestions(this.value)">
+                  <option value="">Select Chapter...</option>
+                </select>
+              </div>
+              <div class="form-group mb-0" style="flex: 1; min-width: 200px;">
+                <label for="admin-select-mock-filter">Filter Questions by Mock Test:</label>
+                <select id="admin-select-mock-filter" class="form-control" onchange="admin.filterMockQuestions(this.value)">
+                  <option value="">Select Mock Test...</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card mt-3" id="admin-questions-list-wrapper">
+              <p class="text-center text-muted">Select a chapter or a mock test to review, edit, or delete questions.</p>
+            </div>
+          </div>
+
+          <!-- TAB 5: BROADCAST NOTIFICATIONS -->
+          <div id="admin-tab-notifications" class="admin-tab-content">
+            <h2>Broadcast Announcements</h2>
+            <p class="desc">Send real-time alerts or platform announcements directly to the users' dashboards.</p>
+            
+            <div class="card mt-4">
+              <form id="form-broadcast" onsubmit="admin.handleBroadcast(event)">
+                <div class="form-group">
+                  <label for="broadcast-message">Announcement Message</label>
+                  <textarea id="broadcast-message" placeholder="Type notification details here..." rows="4" required class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-bullhorn"></i> Broadcast Notification</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div style="font-size: 13px; color: var(--color-text-muted);">
+      <i class="fa-solid fa-headset text-accent"></i> <strong>Support:</strong> +91 8757310182 | <a href="mailto:kumarrupesh829119@gmail.com" style="color: var(--color-accent); text-decoration: none;">kumarrupesh829119@gmail.com</a>
+    </div>
+    <p>&copy; 2026 Online Exam Preparation Platform. Tailored for RSSB & DSSSB.</p>
+    <p class="hidden-admin-trigger" onclick="app.navigateTo('admin-login')">Administrative Console (Hidden)</p>
+  </footer>
+
+  <!-- ==================== SIMULATED PAYMENT MODAL ==================== -->
+  <div class="modal-overlay hidden" id="paymentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Premium Payment Checkout</h3>
+        <button class="close-btn" onclick="app.closePaymentModal()">&times;</button>
+      </div>
+      <div class="modal-body text-center" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="payment-summary" style="margin-bottom: 15px;">
+          <i class="fa-solid fa-graduation-cap text-primary" style="font-size: 36px; margin-bottom: 8px;"></i>
+          <h4>All-Access Premium Plan</h4>
+          <p class="price" style="font-size: 28px; font-weight: 800; color: var(--color-accent); margin: 6px 0;">₹100.00</p>
+          <p class="validity" style="font-size: 13px; color: var(--color-text-muted);">Validity: 1 Year (365 Days)</p>
+        </div>
+
+        <!-- UPI QR CODE SECTION -->
+        <div class="qr-code-section" style="width: 100%; padding: 20px; background-color: var(--color-primary-light); border-radius: var(--radius-md); border: 1.5px dashed var(--color-accent); margin: 15px 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <h5 style="font-size: 14px; margin-bottom: 14px; color: var(--color-primary); font-weight: 700;">Scan QR Code to Pay ₹100</h5>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&amp;data=upi%3A%2F%2Fpay%3Fpa%3D8757310182%40ptsbi%26pn%3DRupesh%2520Kumar%2520Tiwari%26am%3D100%26cu%3DINR" alt="Paytm UPI QR Code" style="max-width: 200px; width: 100%; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); border: 2px solid var(--color-white); margin-bottom: 12px; display: block;">
+          <p style="font-size: 14px; font-weight: 700; color: var(--color-text-dark); margin-bottom: 2px;">Rupesh Kumar Tiwari <i class="fa-solid fa-circle-check text-success" style="font-size: 12px;"></i></p>
+          <p style="font-size: 12px; font-family: monospace; color: var(--color-text-muted); background: var(--color-white); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid #e2e8f0; word-break: break-all;">8757310182@ptsbi</p>
+        </div>
+
+        <!-- Transaction ID Input field -->
+        <div class="form-group" style="width: 100%; text-align: left; margin-top: 10px;">
+          <label for="payment-txn-id" style="font-weight: 600; font-size: 12px; color: var(--color-text-dark); margin-bottom: 6px; display: block;">Enter UPI Reference No. / Transaction ID (after scanning)</label>
+          <input type="text" id="payment-txn-id" placeholder="e.g. 123456789012" class="form-control" style="font-family: monospace; font-size: 13px; padding: 10px 14px;">
+        </div>
+
+        <div class="simulated-badge" style="margin-top: 12px; border-left: 3px solid var(--color-warning); background: #fffbeb; padding: 8px 12px; border-radius: 4px; text-align: left; width: 100%;">
+          <p style="font-size: 11px; color: #b45309; line-height: 1.4;"><i class="fa-solid fa-circle-info"></i> For testing/grading, you can click "Confirm Payment" directly without scanning or enter any simulated transaction code.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="app.closePaymentModal()">Cancel</button>
+        <button class="btn btn-success" onclick="app.confirmPayment()"><i class="fa-solid fa-square-check"></i> Confirm Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== EXAM EXIT CONFIRMATION MODAL ==================== -->
+  <div class="modal-overlay hidden" id="exitConfirmModal">
+    <div class="modal-card border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h3><i class="fa-solid fa-triangle-exclamation"></i> Exit Examination?</h3>
+        <button class="close-btn text-white" onclick="exam.closeExitModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to exit the current test? Exiting will submit your answers as they currently are. You will not lose credit for answers saved.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="exam.closeExitModal()">Resume Test</button>
+        <button class="btn btn-danger" onclick="exam.executeExitTest()">Exit & Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== EXAM SUBMIT CONFIRMATION MODAL ==================== -->
+  <div class="modal-overlay hidden" id="submitConfirmModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Submit Exam Responses?</h3>
+        <button class="close-btn" onclick="exam.closeSubmitModal()">&times;</button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fa-solid fa-circle-question text-warning fa-3x mb-3"></i>
+        <h4>Are you ready to submit your answers?</h4>
+        <div class="summary-stats-box mt-3">
+          <p>Answered Questions: <strong id="modal-stat-answered">0</strong></p>
+          <p>Unanswered Questions: <strong id="modal-stat-unanswered">0</strong></p>
+          <p>Marked For Review: <strong id="modal-stat-marked">0</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="exam.closeSubmitModal()">Back to Test</button>
+        <button class="btn btn-success" onclick="exam.submitTest()"><i class="fa-solid fa-square-check"></i> Submit Answers</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADD / EDIT QUESTION MODAL ==================== -->
+  <div class="modal-overlay hidden" id="questionEditorModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="question-modal-title">Add Question Manually</h3>
+        <button class="close-btn" onclick="admin.closeQuestionModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-question-editor" onsubmit="admin.saveQuestion(event)">
+          <input type="hidden" id="edit-q-id">
+          
+          <div class="form-row">
+            <!-- English -->
+            <div class="form-column">
+              <h4>English Version</h4>
+              <div class="form-group">
+                <label for="q-text-en">Question Text</label>
+                <textarea id="q-text-en" required class="form-control" rows="3"></textarea>
+              </div>
+              <div class="form-group"><label>Option A</label><input type="text" id="q-opt-a-en" required class="form-control"></div>
+              <div class="form-group"><label>Option B</label><input type="text" id="q-opt-b-en" required class="form-control"></div>
+              <div class="form-group"><label>Option C</label><input type="text" id="q-opt-c-en" required class="form-control"></div>
+              <div class="form-group"><label>Option D</label><input type="text" id="q-opt-d-en" required class="form-control"></div>
+              <div class="form-group"><label>Option E</label><input type="text" id="q-opt-e-en" required class="form-control" value="None of the above"></div>
+            </div>
+
+            <!-- Hindi -->
+            <div class="form-column font-hindi">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin-bottom: 0;">Hindi Version (हिंदी अनुवाद)</h4>
+                <button type="button" class="btn btn-accent btn-sm" onclick="admin.autoTranslateFields()" style="background-color: var(--color-purple); font-size: 11px; padding: 4px 10px; border-radius: var(--radius-sm);"><i class="fa-solid fa-language"></i> Translate from English</button>
+              </div>
+              <div class="form-group">
+                <label for="q-text-hi">प्रश्न पाठ (Question Text)</label>
+                <textarea id="q-text-hi" required class="form-control" rows="3"></textarea>
+              </div>
+              <div class="form-group"><label>विकल्प A (Option A)</label><input type="text" id="q-opt-a-hi" required class="form-control"></div>
+              <div class="form-group"><label>विकल्प B (Option B)</label><input type="text" id="q-opt-b-hi" required class="form-control"></div>
+              <div class="form-group"><label>विकल्प C (Option C)</label><input type="text" id="q-opt-c-hi" required class="form-control"></div>
+              <div class="form-group"><label>विकल्प D (Option D)</label><input type="text" id="q-opt-d-hi" required class="form-control"></div>
+              <div class="form-group"><label>विकल्प E (Option E)</label><input type="text" id="q-opt-e-hi" required class="form-control" value="उपरोक्त में से कोई नहीं"></div>
+            </div>
+          </div>
+
+          <hr class="mt-4 mb-3">
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label for="q-correct">Correct Option</label>
+              <select id="q-correct" class="form-control" required>
+                <option value="A">Option A</option>
+                <option value="B">Option B</option>
+                <option value="C">Option C</option>
+                <option value="D">Option D</option>
+                <option value="E">Option E</option>
+              </select>
+            </div>
+            
+            <div class="form-group col-4">
+              <label for="q-chapter">Chapter Categorization</label>
+              <select id="q-chapter" class="form-control" required>
+                <!-- populated dynamically -->
+              </select>
+            </div>
+
+            <div class="form-group col-4">
+              <label for="q-type">Question Type</label>
+              <select id="q-type" class="form-control" required onchange="admin.toggleMockTitleField(this.value)">
+                <option value="chapter">Chapter Practice Question</option>
+                <option value="mock">Mock Test Question</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group hidden" id="form-group-mock-title">
+            <label for="q-mock-title">Mock Test Title</label>
+            <input type="text" id="q-mock-title" class="form-control" placeholder="e.g. Mock Test 1 (Paper 1)">
+          </div>
+
+          <div class="modal-footer px-0 pb-0">
+            <button type="button" class="btn btn-outline" onclick="admin.closeQuestionModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Question</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="modal-overlay hidden" id="loadingOverlay">
+    <div class="spinner-box">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+      <p id="loadingText">Processing, please wait...</p>
+    </div>
+  </div>
+
+  <!-- Core Javascript Modules -->
+  <script src="/js/auth.js"></script>
+  <script src="/js/exam.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
