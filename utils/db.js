@@ -7,13 +7,17 @@ const connectDB = async () => {
     return cachedConnection;
   }
 
-  const uri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/exam_prep_platform';
-  
   try {
-    cachedConnection = await mongoose.connect(uri, {
-      dbName: 'exam_prep_platform',
-      serverSelectionTimeoutMS: 5000 // Time out quickly (5s) to fail fast rather than hang
-    });
+    const conn = await mongoose.connect(
+      process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb+srv://kumarrupesh829119_db_user:Yuvi2707@cluster0.kvcmdjk.mongodb.net/exam_prep_platform?appName=Cluster0',
+      {
+        dbName: 'exam_prep_platform',
+        bufferCommands: false,
+        serverSelectionTimeoutMS: 30000,
+        connectTimeoutMS: 30000
+      }
+    );
+    cachedConnection = conn;
     console.log(`MongoDB Connected: ${cachedConnection.connection.host}`);
     return cachedConnection;
   } catch (error) {
