@@ -255,7 +255,7 @@ const chapters = [
 
 const seedDB = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/exam_prep_platform';
+    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb+srv://kumarrupesh829119_db_user:Yuvi2707@cluster0.kvcmdjk.mongodb.net/exam_prep_platform?appName=Cluster0';
     console.log(`Connecting to database to seed at ${mongoUri}...`);
     await mongoose.connect(mongoUri);
 
